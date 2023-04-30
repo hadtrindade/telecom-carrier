@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      FLASK_APP: /code/telecom_carrier/app.py
+      FLASK_RUN_HOST: "0.0.0.0"
+      FLASK_RUN_PORT: 5000
+      FLASK_DEBUG: 'true'
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: passwd
